@@ -1,11 +1,9 @@
-import Express, { Express as IExpress } from 'express';
+import Express from 'express';
 
-import { PORT as PORT_TYPE } from '@types-local';
+const PORT = process.env.PORT ?? 8080;
 
-const PORT: PORT_TYPE = process.env.PORT ?? 8080;
-
-const app: IExpress = Express();
+const app = Express();
 
 app.listen(PORT, () => {
-  console.log(`Application running on port ${PORT}`)
+  console.log(`Application running on port ${PORT}`);
 });
