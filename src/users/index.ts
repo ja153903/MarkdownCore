@@ -3,7 +3,7 @@ import { body, validationResult } from 'express-validator';
 
 import logger from '../lib/logger';
 import { User } from './interfaces';
-import { createUser } from './queries';
+import { createUser, deleteUser } from './queries';
 
 const router = Express.Router();
 
@@ -28,5 +28,18 @@ router.post('/',
 		}
 	}
 );
+
+router.delete('/:id', async (req: Express.Request, res: Express.Response) => {
+	const { id } = req.params;
+
+	try {
+		const userId = Number(id);
+		const deletedUser = await deleteUser(userId);
+		res.json(deletedUser);
+	} catch {
+		logger.error(`Failed to delete user with id: ${id}`);
+		res.status(500).json({ error: 'Something went wrong' });
+	}
+});
 
 export default router;
