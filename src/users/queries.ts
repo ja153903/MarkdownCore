@@ -14,4 +14,17 @@ async function createUser(user: User) {
 	return newUser;
 }
 
-export { createUser };
+async function updateUser(userId: number, data: any) {
+	const updatedUser = await prisma.user.update({
+		where: {
+			id: userId
+		},
+		data
+	});
+
+	logger.info(`Updating user fields ${Object.keys(data)} for userId ${userId}`);
+
+	return updatedUser;
+}
+
+export { createUser, updateUser };
