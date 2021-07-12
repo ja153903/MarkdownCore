@@ -5,16 +5,18 @@ import { prisma } from '../prisma';
 async function createUser(user: User) {
 	const { email, name } = user;
 
+	logger.info(`Creating new user with email ${email} and name ${name}`);
+
 	const newUser = await prisma.user.create({
 		data: { email, name }
 	});
-
-	logger.info(`Creating new user with email ${email} and name ${name}`);
 
 	return newUser;
 }
 
 async function updateUser(userId: number, data: any) {
+	logger.info(`Updating user fields ${Object.keys(data)} for userId ${userId}`);
+
 	const updatedUser = await prisma.user.update({
 		where: {
 			id: userId
@@ -22,19 +24,17 @@ async function updateUser(userId: number, data: any) {
 		data
 	});
 
-	logger.info(`Updating user fields ${Object.keys(data)} for userId ${userId}`);
-
 	return updatedUser;
 }
 
 async function deleteUser(userId: number) {
+	logger.info(`Deleting user with userId: ${userId}`);
+
 	const deletedUser = await prisma.user.delete({
 		where: {
 			id: userId
 		}
 	});
-
-	logger.info(`Deleting user with userId: ${userId}`);
 
 	return deletedUser;
 }
