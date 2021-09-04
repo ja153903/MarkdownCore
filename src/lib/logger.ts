@@ -41,4 +41,4 @@ export default winston.createLogger({
 	levels: WINSTON_LOGGING_LEVEL_VALUES,
 	format: winstonFormatSettings,
 	transports: winstonTransports
-})
+});
